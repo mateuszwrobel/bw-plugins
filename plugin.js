@@ -42,18 +42,21 @@ var _v = new Date();
 
                 var topOffer = $this.parent().parent().find( 'td' ).eq( 3 );
 
-                var max = Math.floor( price / 134 * 0.9 );
                 var totalValue = Math.floor( price / 134 );
+                var max = Math.floor( totalValue / 1.05 / 1.05 );
+                var middle = Math.floor( totalValue / 1.05 );
+                
                 if (
                     (
                         parseInt( topOffer.text().replace( ' ', '' ), 10) < totalValue
-                        || topOffer.text().search( 'brak' ) > -1 && max > 50
+                        || topOffer.text().search( 'brak' ) > -1
+                        && max > 50
                     )
                     && parseInt( topOffer.text(), 10) * 1.05 < totalValue
                 ) {
                     var wrapper = $( '<span>' );
                     wrapper.css( 'color','lime' );
-                    wrapper.text( max + ' t: ' + totalValue );
+                    wrapper.text( max + '/' + middle + ' t: ' + totalValue );
 
                     max = wrapper;
                 }
@@ -136,20 +139,12 @@ var _v = new Date();
         },
 
         settings: function () {
-            var $optionsMenu = $( '.top-options' );
 
-            var $links = $( 'a', $optionsMenu );
 
-            var $newMenu = $( '<ul>' );
-
-            var i = 0;
-            for ( ; i < $links.length; i++ ) {
-                var link = $links[ i ];
-
-                $newMenu.append( $( link ).wrap( 'li' ) );
-            }
         }
     };
 
-    actions[ paramsAssoc.a ].call();
+    if ( typeof actions[ paramsAssoc.a ] === 'function' ) {
+        actions[ paramsAssoc.a ].call();
+    }
 })( window, document, jQuery );
