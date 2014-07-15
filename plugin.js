@@ -42,26 +42,26 @@ var _v = new Date();
 
                 var topOffer = $this.parent().parent().find( 'td' ).eq( 3 );
 
-                var totalValue = Math.floor( price / 134 );
+                var totalValue = Math.floor( price * 0.016 );
+                var totalValue2 = Math.floor( price * 0.015 );
                 var max = Math.floor( totalValue / 1.05 / 1.05 );
                 var middle = Math.floor( totalValue / 1.05 );
                 
+                var wrapper = $( '<span>' );
                 if (
                     (
                         parseInt( topOffer.text().replace( ' ', '' ), 10) < totalValue
-                        || topOffer.text().search( 'brak' ) > -1
+                       || topOffer.text().search( 'brak' ) > -1
                         && max > 50
                     )
                     && parseInt( topOffer.text(), 10) * 1.05 < totalValue
                 ) {
-                    var wrapper = $( '<span>' );
                     wrapper.css( 'color','lime' );
-                    wrapper.text( max + '/' + middle + ' t: ' + totalValue );
-
-                    max = wrapper;
                 }
 
-                topOffer.append( ' / max: ' ).append(max);
+                wrapper.text( max + '/' + middle + ' t: ' + totalValue2 + '/' + totalValue );
+                
+                topOffer.append( ' / max: ' ).append(wrapper);
 
                 $( '#overDiv' ).css({
                     position: 'absolute',
@@ -73,7 +73,7 @@ var _v = new Date();
         },
 
         quest: function () {
-            var $questTimer = $( '#newQuestTime_a' );
+            var $questTimer = $( 'form[name="questForm"]' );
 
             var questing = parseInt( localStorage.getItem( 'questing' ), 10 );
 
@@ -130,7 +130,7 @@ var _v = new Date();
             };
 
             questButton.on( 'click', setQuesting );
-            $questTimer.after( questButton ).after( '&nbsp;' );
+            $('body').before( questButton ).after( '&nbsp;' );
 
             runQuest();
         },
