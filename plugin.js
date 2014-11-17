@@ -42,8 +42,8 @@ var _v = new Date();
 
                 var topOffer = $this.parent().parent().find( 'td' ).eq( 3 );
 
-                var totalValue = Math.floor( price * 0.016 );
-                var totalValue2 = Math.floor( price * 0.015 );
+                var totalValue = Math.floor( price * 0.0175 );
+                var totalValue2 = Math.floor( price * 0.019 );
                 var max = Math.floor( totalValue / 1.05 / 1.05 );
                 var middle = Math.floor( totalValue / 1.05 );
                 
